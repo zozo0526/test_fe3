@@ -8,8 +8,10 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
-// import babel from 'vite-plugin-babel'
-// import legacy from '@vitejs/plugin-legacy'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import babel from 'vite-plugin-babel'
+import legacy from '@vitejs/plugin-legacy'
 
 
 // https://vitejs.dev/config/
@@ -28,11 +30,12 @@ export default defineConfig({
     },
   },
   plugins: [
+    babel(),
     Vue(),
-    // babel(),
-    // legacy({
-    //   targets: ['defaults', 'not IE 11']
-    // }),
+    legacy({
+      targets: ['defaults', 'not IE 11']
+    }),
+    // https://github.com/posva/unplugin-vue-router
     VueRouter({
       extensions: ['.vue', '.md'],
       dts: 'src/typed-router.d.ts',
@@ -40,6 +43,10 @@ export default defineConfig({
     AutoImport({
       resolvers: [
         ElementPlusResolver(),
+        // 自动导入图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
       ],
       dts: 'src/auto-imports.d.ts',
     }),
@@ -49,12 +56,17 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       resolvers: [
+        IconsResolver({
+          prefix: 'icon', // You can customize the prefix
+          enabledCollections: ['ep', 'fa6-solid'],
+        }),
         ElementPlusResolver({
           importStyle: 'sass',
         }),
       ],
       dts: 'src/components.d.ts',
     }),
+
     // https://github.com/antfu/unocss
     // see uno.config.ts for config
     Unocss(),

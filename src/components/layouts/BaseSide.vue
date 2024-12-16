@@ -39,12 +39,12 @@ function handleClose(key: string, keyPath: string[]) {
         <el-menu-item index="/nav/1/item-1">
           item one
         </el-menu-item>
-        <el-menu-item index="1-2">
+        <el-menu-item index="/1-2">
           item two
         </el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">
+        <el-menu-item index="/nav/1/1-3">
           item three
         </el-menu-item>
       </el-menu-item-group>
@@ -52,7 +52,7 @@ function handleClose(key: string, keyPath: string[]) {
         <template #title>
           <span>item four</span>
         </template>
-        <el-menu-item index="1-4-1">
+        <el-menu-item index="/nav/1/1-4-1">
           item one
         </el-menu-item>
       </el-sub-menu>
